@@ -1,0 +1,28 @@
+﻿@model Schedule_Constructor.Models.DataModels.Group
+
+@{
+    ViewData["Title"] = "Удаление группы";
+}
+
+<h1>Удаление группы</h1>
+
+<h3>Вы уверены, что хотите удалить эту группу?</h3>
+<div>
+    <h4>Группа</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name_Group)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name_Group)
+        </dd>
+    </dl>
+
+    <form asp-action="GroupDelete">
+        <input type="hidden" asp-for="Id_Group" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />  
+        <a asp-action="Groups" class="btn btn-primary">Назад к списку</a>
+    </form>
+</div>
+

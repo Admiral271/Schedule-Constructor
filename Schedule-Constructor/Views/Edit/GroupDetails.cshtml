@@ -1,0 +1,25 @@
+﻿@model Schedule_Constructor.Models.DataModels.Group
+
+@{
+    ViewData["Title"] = "Детали группы";
+}
+
+<h1>Детали группы</h1>
+
+<div>
+    <h4>Группа</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name_Group)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name_Group)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="GroupEdit" asp-route-id="@Model.Id_Group" class="btn btn-danger">Редактировать</a> 
+    <a asp-action="Groups" class="btn btn-primary">Назад к списку</a>
+</div>
+

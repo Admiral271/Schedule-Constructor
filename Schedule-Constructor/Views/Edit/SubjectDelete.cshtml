@@ -1,0 +1,39 @@
+﻿@model Schedule_Constructor.Models.DataModels.Subject
+
+@{
+    ViewData["Title"] = "Удаление предмета";
+}
+
+<h1>Удаление предмета</h1>
+
+<h3>Вы уверены, что хотите удалить этот предмет?</h3>
+<div>
+    <h4>Предмет</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name_Subject)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name_Subject)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cabinet)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cabinet)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher)
+        </dd>
+    </dl>
+
+    <form asp-action="SubjectDelete">
+        <input type="hidden" asp-for="Id_Subject" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> 
+        <a asp-action="Subjects" class="btn btn-primary">Назад к списку</a>
+    </form>
+</div>

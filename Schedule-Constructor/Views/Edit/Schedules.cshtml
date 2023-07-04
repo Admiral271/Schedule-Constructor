@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Schedule_Constructor.Models.DataModels.Schedule>
+@{
+    var groups = ViewBag.Groups as List<Schedule_Constructor.Models.DataModels.Group>;
+    var selectedGroup = ViewBag.SelectedGroup as Schedule_Constructor.Models.DataModels.Group;
+    int daysInWeek = 6;
+    string[] daysOfWeek = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" };
+}
+
+@{
+    ViewData["Title"] = "Расписания";
+}
+
+<h1>Расписания</h1>
+
+<h4>Выберите группу:</h4>
+<select id="groupSelect" class="form-control">
+    <option value="">--Выберите группу--</option>
+    @foreach (var group in groups)
+    {
+        <option value="@group.Id_Group" selected="@(selectedGroup != null && group.Id_Group == selectedGroup.Id_Group)">@group.Name_Group</option>
+    }
+</select>
+
+@if (Model != null && Model.Any())
+{
+    <h3>Группа: @selectedGroup.Name_Group</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>День недели</th>
+                <th>1 пара</th>
+                <th>2 пара</th>
+                <th>3 пара</th>
+                <th>4 пара</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int dayOfWeek = 0; dayOfWeek < daysInWeek; dayOfWeek++)
+            {
+                <tr>
+                    <td>@daysOfWeek[dayOfWeek]</td>
+                    @for (int lessonNumber = 0; lessonNumber < 4; lessonNumber++)
+                    {
+                        var schedule = Model.FirstOrDefault(s => s.DayOfWeek == dayOfWeek && s.LessonNumber == lessonNumber);
+                        <td>@schedule?.Subject?.Name_Subject</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="ScheduleEdit" asp-route-groupId="@selectedGroup.Id_Group" class="btn btn-success">Редактировать расписание</a>
+    <a asp-action="ScheduleDelete" asp-route-groupId="@selectedGroup.Id_Group" class="btn btn-danger">Удалить расписание</a>
+}
+else
+{
+    <h3>Расписание не найдено</h3>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#groupSelect').on('change', function () {
+                var groupId = $(this).val();
+                if (groupId) {
+                    window.location.href = '/Edit/Schedules?groupId=' + groupId;
+                } else {
+                    window.location.href = '/Edit/Schedules';
+                }
+            });
+
+            var messageType = '@TempData["messageType"]';
+            var message = '@TempData["message"]';
+            if (message) {
+                if (messageType === 'success') {
+                    toastr.success(message);
+                } else if (messageType === 'error') {
+                    toastr.error(message);
+                }
+            }
+        });
+    </script>
+}

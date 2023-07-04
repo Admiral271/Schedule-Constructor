@@ -1,0 +1,45 @@
+﻿@model Schedule_Constructor.Models.DataModels.Subject
+
+@{
+    ViewData["Title"] = "Редактирование предмета";
+}
+
+<h1>Редактирование предмета</h1>
+
+<h4>Предмет</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SubjectEdit">
+            <input type="hidden" asp-for="Id_Subject" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name_Subject" class="control-label"></label>
+                <input asp-for="Name_Subject" class="form-control" />
+                <span asp-validation-for="Name_Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cabinet" class="control-label"></label>
+                <input asp-for="Cabinet" class="form-control" />
+                <span asp-validation-for="Cabinet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher" class="control-label"></label>
+                <input asp-for="Teacher" class="form-control" />
+                <span asp-validation-for="Teacher" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-danger" /> 
+                <a asp-action="Subjects" class="btn btn-primary">Назад к списку</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

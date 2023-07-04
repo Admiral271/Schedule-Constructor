@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Schedule_Constructor.Models.DataModels.Group>
+
+@{
+    ViewData["Title"] = "Группы";
+}
+
+<h1>Группы</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name_Group)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name_Group)
+                </td>
+                <td>
+                    <a asp-action="GroupEdit" asp-route-id="@item.Id_Group" class="btn btn-success">Редактировать</a> 
+                    <a asp-action="GroupDetails" asp-route-id="@item.Id_Group" class="btn btn-primary">Подробнее</a> 
+                    <a asp-action="GroupDelete" asp-route-id="@item.Id_Group" class="btn btn-danger">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            var messageType = '@TempData["messageType"]';
+            var message = '@TempData["message"]';
+            if (message) {
+                if (messageType === 'success') {
+                    toastr.success(message);
+                } else if (messageType === 'error') {
+                    toastr.error(message);
+                }
+            }
+        });
+    </script>
+}
+

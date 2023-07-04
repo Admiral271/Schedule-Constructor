@@ -1,0 +1,37 @@
+﻿@model Schedule_Constructor.Models.DataModels.Subject
+
+@{
+    ViewData["Title"] = "Детали предмета";
+}
+
+<h1>Детали предмета</h1>
+
+<div>
+    <h4>Предмет</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name_Subject)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name_Subject)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cabinet)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cabinet)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="SubjectEdit" asp-route-id="@Model.Id_Subject" class="btn btn-danger">Редактировать</a> 
+    <a asp-action="Subjects" class="btn btn-primary">Назад к списку</a>
+</div>
+

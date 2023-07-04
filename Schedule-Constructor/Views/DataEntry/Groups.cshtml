@@ -1,0 +1,33 @@
+﻿@model Schedule_Constructor.Models.DataModels.Group
+
+<div class="card">
+    <div class="card-header">
+        Добавление новой группы
+    </div>
+    <div class="card-body">
+        <form asp-action="CreateGroup" asp-controller="DataEntry" method="post">
+            <div class="form-group">
+                <label asp-for="Name_Group">Название группы</label>
+                <input asp-for="Name_Group" class="form-control" />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-danger">Добавить</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            var messageType = '@TempData["messageType"]';
+            var message = '@TempData["message"]';
+            if (message) {
+                if (messageType === 'success') {
+                    toastr.success(message);
+                } else if (messageType === 'error') {
+                    toastr.error(message);
+                }
+            }
+        });
+    </script>
+}

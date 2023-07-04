@@ -1,0 +1,35 @@
+﻿@model Schedule_Constructor.Models.DataModels.Group
+
+@{
+    ViewData["Title"] = "Редактирование группы";
+}
+
+<h1>Редактирование группы</h1>
+
+<h4>Группа</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="GroupEdit">
+            <input type="hidden" asp-for="Id_Group" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name_Group" class="control-label"></label>
+                <input asp-for="Name_Group" class="form-control" />
+                <span asp-validation-for="Name_Group" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-danger" /> 
+                <a asp-action="Groups" class="btn btn-primary">Назад к списку</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

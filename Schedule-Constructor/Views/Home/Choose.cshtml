@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Выбор данных";
+}
+
+<h2>Выбор данных</h2>
+
+<p>Выберите тип данных, который вы хотите просмотреть/редактировать/удалить:</p>
+
+<ul class="list-group">
+    <li class="list-group-item"><a asp-controller="Edit" asp-action="Subjects" class="list-group-item-action">Предметы</a></li>
+    <li class="list-group-item"><a asp-controller="Edit" asp-action="Groups" class="list-group-item-action">Группы</a></li>
+    <li class="list-group-item"><a asp-controller="Edit" asp-action="Schedules" class="list-group-item-action">Расписания на неделю</a></li>
+</ul>
