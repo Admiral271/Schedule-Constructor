@@ -1,0 +1,109 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Schedule_Constructor
+build_property.RootNamespace = Schedule_Constructor
+build_property.ProjectDir = C:\Users\ienik\source\repos\Schedule-Constructor\Schedule-Constructor\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\ienik\source\repos\Schedule-Constructor\Schedule-Constructor
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/DataEntry/Groups.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YUVudHJ5XEdyb3Vwcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/DataEntry/Subjects.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YUVudHJ5XFN1YmplY3RzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/GroupDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxHcm91cERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/GroupDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxHcm91cERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/GroupEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxHcm91cEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/Groups.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxHcm91cHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/ScheduleDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxTY2hlZHVsZURlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/ScheduleEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxTY2hlZHVsZUVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/Schedules.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxTY2hlZHVsZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/SubjectDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxTdWJqZWN0RGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/SubjectDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxTdWJqZWN0RGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/SubjectEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxTdWJqZWN0RWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Edit/Subjects.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxTdWJqZWN0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Home/Choose.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDaG9vc2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Home/DataEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXRhRW50cnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Home/Schedule.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTY2hlZHVsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Schedule/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2NoZWR1bGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ienik/source/repos/Schedule-Constructor/Schedule-Constructor/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-qgietrpe85

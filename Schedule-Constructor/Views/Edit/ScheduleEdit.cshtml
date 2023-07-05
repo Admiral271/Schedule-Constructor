@@ -1,10 +1,14 @@
 ﻿@model IEnumerable<Schedule_Constructor.Models.DataModels.Schedule>
 @{
-    var groups = ViewBag.Groups as List<Schedule_Constructor.Models.DataModels.Group>;
-    var allSubjects = ViewBag.AllSubjects as List<Schedule_Constructor.Models.DataModels.Subject>;
-    var selectedGroup = ViewBag.SelectedGroup as Schedule_Constructor.Models.DataModels.Group;
+    var groups =
+        ViewBag.Groups as List<Schedule_Constructor.Models.DataModels.Group>;
+    var allSubjects =
+        ViewBag.AllSubjects as List<Schedule_Constructor.Models.DataModels.Subject>;
+    var selectedGroup =
+        ViewBag.SelectedGroup as Schedule_Constructor.Models.DataModels.Group;
     int daysInWeek = 6;
-    string[] daysOfWeek = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" };
+    string[] daysOfWeek = new string[] { "Понедельник", "Вторник", "Среда",
+                                         "Четверг",     "Пятница", "Суббота" };
 }
 
 @{
@@ -38,18 +42,23 @@
                     @for (int lessonNumber = 0; lessonNumber < 4; lessonNumber++)
                     {
                         string selectName = $"scheduleData[{dayOfWeek * 4 + lessonNumber}].SubjectId";
-                        string dayOfWeekName = $"scheduleData[{dayOfWeek * 4 + lessonNumber}].DayOfWeek";
-                        string lessonNumberName = $"scheduleData[{dayOfWeek * 4 + lessonNumber}].LessonNumber";
-                        var schedule = Model.FirstOrDefault(s => s.DayOfWeek == dayOfWeek && s.LessonNumber == lessonNumber);
+                        string dayOfWeekName =
+                        $"scheduleData[{dayOfWeek * 4 + lessonNumber}].DayOfWeek";
+                        string lessonNumberName =
+                        $"scheduleData[{dayOfWeek * 4 + lessonNumber}].LessonNumber";
+                        var schedule = Model.FirstOrDefault(s => s.DayOfWeek == dayOfWeek &&
+                        s.LessonNumber == lessonNumber);
                         <td>
                             @{
                                 string onchangeAttribute = "onchange=\"updateSchedule(this)\"";
                             }
                             <select class="form-control" name="@selectName">
-                                <option value="">--Выберите предмет--</option>
+                                <option value=""></option>
                                 @foreach (var subject in allSubjects)
                                 {
-                                    <option value="@subject.Id_Subject" selected="@(schedule != null && schedule.SubjectId == subject.Id_Subject)">@subject.Name_Subject</option>
+                                    <option value="@subject.Id_Subject" selected="@(schedule != null && schedule.SubjectId == subject.Id_Subject)">
+                                        @subject.Name_Subject
+                                    </option>
                                 }
                             </select>
 
@@ -73,4 +82,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-

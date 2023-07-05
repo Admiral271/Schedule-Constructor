@@ -62,18 +62,23 @@ namespace Schedule_Constructor.Controllers
             // Добавление новых данных расписания для выбранной группы
             foreach (var scheduleData in data.ScheduleData)
             {
-                var schedule = new Schedule
+                // Проверка, равен ли SubjectId нулю
+                if (scheduleData.SubjectId != 0)
                 {
-                    GroupId = data.Group,
-                    DayOfWeek = scheduleData.DayOfWeek,
-                    LessonNumber = scheduleData.LessonNumber,
-                    SubjectId = scheduleData.SubjectId
-                };
-                applicationDbContext.Schedules.Add(schedule);
+                    var schedule = new Schedule
+                    {
+                        GroupId = data.Group,
+                        DayOfWeek = scheduleData.DayOfWeek,
+                        LessonNumber = scheduleData.LessonNumber,
+                        SubjectId = scheduleData.SubjectId
+                    };
+                    applicationDbContext.Schedules.Add(schedule);
+                }
             }
             applicationDbContext.SaveChanges();
 
             return RedirectToAction("Index");
         }
+
     }
 }

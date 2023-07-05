@@ -78,7 +78,7 @@ else
                 var select = selects[i];
                 var dayOfWeek = select.name.split('[')[1].slice(0, -1);
                 var lessonNumber = select.name.split('[')[2].slice(0, -1);
-                var subjectId = select.value;
+                var subjectId = select.value || "0"; // Установка значения subjectId в 0 для пустых занятий
                 scheduleData.push({
                     dayOfWeek: dayOfWeek,
                     lessonNumber: lessonNumber,
@@ -87,6 +87,7 @@ else
             }
             return scheduleData;
         }
+
 
         // Отправка данных на сервер
         function sendScheduleData(scheduleData) {

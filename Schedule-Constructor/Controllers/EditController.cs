@@ -259,6 +259,7 @@ namespace Schedule_Constructor.Controllers
             return RedirectToAction("Schedules", "Edit");
         }
 
+
         public IActionResult ScheduleDelete(int groupId)
         {
             var group = _context.Groups.FirstOrDefault(g => g.Id_Group == groupId);
