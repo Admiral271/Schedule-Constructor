@@ -214,51 +214,48 @@ namespace Schedule_Constructor.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ScheduleEdit(int groupId, ScheduleViewModel scheduleViewModel)
+        public IActionResult ScheduleEdit(int groupId, List<ScheduleData> scheduleData)
         {
-            if (ModelState.IsValid)
+            if (scheduleData == null)
             {
-                var group = _context.Groups.FirstOrDefault(g => g.Id_Group == groupId);
-                if (group == null)
-                {
-                    TempData["messageType"] = "error";
-                    TempData["message"] = "Группа не найдена";
-                    return RedirectToAction("Schedules", "Edit");
-                }
+                return RedirectToAction("Schedules", "Edit");
+            }
 
-                var schedulesToRemove = _context.Schedules.Where(s => s.GroupId == group.Id_Group).ToList();
-                _context.Schedules.RemoveRange(schedulesToRemove);
+            var group = _context.Groups.FirstOrDefault(g => g.Id_Group == groupId);
+            if (group == null)
+            {
+                TempData["messageType"] = "error";
+                TempData["message"] = "Группа не найдена";
+                return RedirectToAction("Schedules", "Edit");
+            }
 
-                foreach (var scheduleData in scheduleViewModel.ScheduleData)
+            var schedulesToRemove = _context.Schedules.Where(s => s.GroupId == group.Id_Group).ToList();
+            _context.Schedules.RemoveRange(schedulesToRemove);
+
+            foreach (var data in scheduleData)
+            {
+                if (data.SubjectId != 0)
                 {
-                    var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == scheduleData.SubjectId);
-                    if (subject == null)
-                    {
-                        continue;
-                    }
+                    var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == data.SubjectId);
 
                     var schedule = new Schedule
                     {
                         GroupId = group.Id_Group,
                         Group = group,
-                        DayOfWeek = scheduleData.DayOfWeek,
-                        LessonNumber = scheduleData.LessonNumber,
-                        SubjectId = subject.Id_Subject,
+                        DayOfWeek = data.DayOfWeek,
+                        LessonNumber = data.LessonNumber,
+                        SubjectId = subject?.Id_Subject ?? 0,
                         Subject = subject
                     };
                     _context.Schedules.Add(schedule);
                 }
-                _context.SaveChanges();
-                TempData["messageType"] = "success";
-                TempData["message"] = "Расписание успешно отредактировано";
-                return RedirectToAction("Schedules", "Edit");
             }
-            TempData["messageType"] = "error";
-            TempData["message"] = "Ошибка при редактировании расписания";
+
+            _context.SaveChanges();
+            TempData["messageType"] = "success";
+            TempData["message"] = "Расписание успешно отредактировано";
             return RedirectToAction("Schedules", "Edit");
         }
-
 
         public IActionResult ScheduleDelete(int groupId)
         {

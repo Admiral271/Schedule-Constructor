@@ -8,7 +8,7 @@
         ViewBag.SelectedGroup as Schedule_Constructor.Models.DataModels.Group;
     int daysInWeek = 6;
     string[] daysOfWeek = new string[] { "Понедельник", "Вторник", "Среда",
-                                         "Четверг",     "Пятница", "Суббота" };
+        "Четверг", "Пятница", "Суббота" };
 }
 
 @{
@@ -72,7 +72,8 @@
     </table>
 
     <div class="form-group">
-        <input type="submit" value="Сохранить" class="btn btn-danger" />
+        <input type="submit" value="Сохранить" class="btn btn-danger"
+               onclick="return confirm('Вы уверены, что хотите сохранить изменения?')" />
         <a asp-action="Schedules" class="btn btn-primary">Назад к списку</a>
     </div>
 </form>
