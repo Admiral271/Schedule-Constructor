@@ -52,6 +52,7 @@
 
     <a asp-action="ScheduleEdit" asp-route-groupId="@selectedGroup.Id_Group" class="btn btn-success">Редактировать расписание</a>
     <a asp-action="ScheduleDelete" asp-route-groupId="@selectedGroup.Id_Group" class="btn btn-danger">Удалить расписание</a>
+    <a asp-action="ExportToPdf" asp-route-groupId="@selectedGroup.Id_Group" class="btn btn-primary">Экспорт в PDF</a>
 }
 else
 {
