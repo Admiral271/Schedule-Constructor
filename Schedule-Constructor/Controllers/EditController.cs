@@ -263,6 +263,33 @@ namespace Schedule_Constructor.Controllers
             TempData["message"] = "Расписание успешно отредактировано";
             return RedirectToAction("Schedules", "Edit");
         }
+
+
+        [HttpGet]
+        public IActionResult CheckConflicts(int groupId, int dayOfWeek, int lessonNumber, int subjectId)
+        {
+            var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == subjectId);
+
+            // Check for conflicts with other groups
+            var conflictingSchedules = _context.Schedules
+                .Include(s => s.Group)
+                .Where(s => s.DayOfWeek == dayOfWeek && s.LessonNumber == lessonNumber && s.Subject.Teacher == subject.Teacher && s.GroupId != groupId)
+                .ToList();
+
+            if (conflictingSchedules.Count > 0)
+            {
+                // Generate a list of conflicting group names
+                var conflictingGroupNames = string.Join(", ", conflictingSchedules.Select(s => s.Group.Name_Group));
+
+                // Generate an alert message
+                return Json(new { hasConflicts = true, message = $"Преподаватель {subject.Teacher} ведёт занятие у другой группы ({conflictingGroupNames}) в это время" });
+            }
+            else
+            {
+                return Json(new { hasConflicts = false });
+            }
+        }
+
         public async Task<IActionResult> ExportToPdf(int groupId)
         {
             // Получение данных расписания для группы

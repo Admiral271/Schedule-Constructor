@@ -46,6 +46,30 @@ namespace Schedule_Constructor.Controllers
             return View("Index");
         }
 
+        [HttpGet]
+        public IActionResult CheckTeacherAvailability(int dayOfWeek, int lessonNumber, string teacher)
+        {
+            // Получите список всех групп, которым назначен выбранный преподаватель в то же время
+            var groups = applicationDbContext.Schedules
+                .Include(s => s.Subject)
+                .Include(s => s.Group)
+                .Where(s => s.DayOfWeek == dayOfWeek && s.LessonNumber == lessonNumber && s.Subject.Teacher == teacher)
+                .Select(s => s.Group.Name_Group)
+                .ToList();
+
+            if (groups.Count > 0)
+            {
+                return Json(new { isAvailable = false, groups = groups });
+            }
+            else
+            {
+                return Json(new { isAvailable = true });
+            }
+        }
+
+
+
+
         [HttpPost]
         [Route("/Schedule/Save")]
         public IActionResult SaveSchedule([FromBody] ScheduleViewModel data)

@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<Schedule_Constructor.Models.DataModels.Schedule>
 @{
     var groups =
-        ViewBag.Groups as List<Schedule_Constructor.Models.DataModels.Group>;
+    ViewBag.Groups as List<Schedule_Constructor.Models.DataModels.Group>;
     var allSubjects =
-        ViewBag.AllSubjects as List<Schedule_Constructor.Models.DataModels.Subject>;
+    ViewBag.AllSubjects as List<Schedule_Constructor.Models.DataModels.Subject>;
     var selectedGroup =
-        ViewBag.SelectedGroup as Schedule_Constructor.Models.DataModels.Group;
+    ViewBag.SelectedGroup as Schedule_Constructor.Models.DataModels.Group;
     int daysInWeek = 6;
     string[] daysOfWeek = new string[] { "Понедельник", "Вторник", "Среда",
-        "Четверг", "Пятница", "Суббота" };
+    "Четверг", "Пятница", "Суббота" };
 }
 
 @{
@@ -49,18 +49,16 @@
                         var schedule = Model.FirstOrDefault(s => s.DayOfWeek == dayOfWeek &&
                         s.LessonNumber == lessonNumber);
                         <td>
-                            @{
-                                string onchangeAttribute = "onchange=\"updateSchedule(this)\"";
-                            }
                             <select class="form-control" name="@selectName">
                                 <option value=""></option>
                                 @foreach (var subject in allSubjects)
                                 {
                                     <option value="@subject.Id_Subject" selected="@(schedule != null && schedule.SubjectId == subject.Id_Subject)">
-                                        @subject.Name_Subject
+                                        @subject.Name_Subject (@subject.Teacher)
                                     </option>
                                 }
                             </select>
+
 
                             <input type="hidden" name="@dayOfWeekName" value="@dayOfWeek" />
                             <input type="hidden" name="@lessonNumberName" value="@lessonNumber" />
@@ -77,8 +75,45 @@
     </div>
 </form>
 
+<!-- add this script block at the bottom of your view -->
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        // get all select elements
+        var selects = document.querySelectorAll("select[name^='scheduleData']");
+
+        // add change event listener to each select element
+        selects.forEach(function (select) {
+            select.addEventListener("change", function (event) {
+                // get selected subject id
+                var subjectId = event.target.value;
+
+                // get day of week and lesson number from select name attribute
+                var match = event.target.name.match(/scheduleData\[(\d+)\]/);
+                var index = parseInt(match[1]);
+                var dayOfWeek = Math.floor(index / 4);
+                var lessonNumber = index % 4;
+
+                // get group id from hidden input
+                var groupId = document.querySelector("input[name='groupId']").value;
+
+                // send ajax request to check for conflicts
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", `/Edit/CheckConflicts?groupId=${groupId}&dayOfWeek=${dayOfWeek}&lessonNumber=${lessonNumber}&subjectId=${subjectId}`);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.hasConflicts) {
+                            // display alert message
+                            alert(response.message);
+                        }
+                    }
+                };
+                xhr.send();
+            });
+        });
+    </script>
 }

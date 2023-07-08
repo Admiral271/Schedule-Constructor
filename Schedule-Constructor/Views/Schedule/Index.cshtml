@@ -109,5 +109,24 @@ else
             var scheduleData = collectScheduleData();
             sendScheduleData(scheduleData);
         });
+
+        // Проверка доступности преподавателя
+        function updateSchedule(selectElement) {
+            var dayOfWeek = selectElement.name.split('[')[1].slice(0, -1);
+            var lessonNumber = selectElement.name.split('[')[2].slice(0, -1);
+            var subjectId = selectElement.value;
+            var teacher = selectElement.options[selectElement.selectedIndex].text.split('(')[1].slice(0, -1);
+
+            // Проверка, назначен ли выбранный преподаватель уже другой группе в то же время
+            $.get('/Schedule/CheckTeacherAvailability', { dayOfWeek: dayOfWeek, lessonNumber: lessonNumber, teacher: teacher }, function (data) {
+                if (data.isAvailable == false) {
+                    var groups = data.groups.join(', ');
+                    alert(`Предупреждение: ${teacher} уже проводит занятие у другой группы (${groups}) в это время.`);
+                }
+            });
+        }
+
+
+
     </script>
 }
