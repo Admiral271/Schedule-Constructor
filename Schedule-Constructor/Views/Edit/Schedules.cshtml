@@ -2,8 +2,6 @@
 @{
     var groups = ViewBag.Groups as List<Schedule_Constructor.Models.DataModels.Group>;
     var selectedGroup = ViewBag.SelectedGroup as Schedule_Constructor.Models.DataModels.Group;
-    int daysInWeek = 6;
-    string[] daysOfWeek = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" };
 }
 
 @{
@@ -28,7 +26,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>День недели</th>
+                <th>Дата</th>
                 <th>1 пара</th>
                 <th>2 пара</th>
                 <th>3 пара</th>
@@ -36,16 +34,20 @@
             </tr>
         </thead>
         <tbody>
-            @for (int dayOfWeek = 0; dayOfWeek < daysInWeek; dayOfWeek++)
+            @foreach (var schedule in Model.GroupBy(s => s.Date))
             {
-                <tr>
-                    <td>@daysOfWeek[dayOfWeek]</td>
-                    @for (int lessonNumber = 0; lessonNumber < 4; lessonNumber++)
-                    {
-                        var schedule = Model.FirstOrDefault(s => s.DayOfWeek == dayOfWeek && s.LessonNumber == lessonNumber);
-                        <td>@schedule?.Subject?.Name_Subject</td>
-                    }
-                </tr>
+                var date = schedule.Key;
+                if (date.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    <tr>
+                        <td>@date.ToString("dd.MM.yyyy")</td>
+                        @for (int lessonNumber = 0; lessonNumber < 4; lessonNumber++)
+                        {
+                            var lessonSchedule = schedule.FirstOrDefault(s => s.LessonNumber == lessonNumber);
+                            <td>@lessonSchedule?.Subject?.Name_Subject</td>
+                        }
+                    </tr>
+                }
             }
         </tbody>
     </table>

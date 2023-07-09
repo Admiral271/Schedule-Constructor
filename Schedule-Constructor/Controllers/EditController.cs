@@ -17,10 +17,12 @@ namespace Schedule_Constructor.Controllers
     public class EditController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger _logger;
 
-        public EditController(ApplicationDbContext context)
+        public EditController(ApplicationDbContext context, ILogger<EditController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // Группы
@@ -204,6 +206,8 @@ namespace Schedule_Constructor.Controllers
             return View(schedules);
         }
 
+
+
         public IActionResult ScheduleEdit(int groupId)
         {
             var group = _context.Groups.FirstOrDefault(g => g.Id_Group == groupId);
@@ -219,9 +223,8 @@ namespace Schedule_Constructor.Controllers
             return View(schedules);
         }
 
-
         [HttpPost]
-        public IActionResult ScheduleEdit(int groupId, List<ScheduleData> scheduleData)
+        public IActionResult ScheduleEdit(int groupId, Dictionary<string, List<ScheduleData>> scheduleData)
         {
             if (scheduleData == null)
             {
@@ -236,25 +239,31 @@ namespace Schedule_Constructor.Controllers
                 return RedirectToAction("Schedules", "Edit");
             }
 
+            // Remove existing schedules for the selected group
             var schedulesToRemove = _context.Schedules.Where(s => s.GroupId == group.Id_Group).ToList();
             _context.Schedules.RemoveRange(schedulesToRemove);
 
-            foreach (var data in scheduleData)
+            // Add new schedules
+            foreach (var dateScheduleData in scheduleData)
             {
-                if (data.SubjectId != 0)
+                var date = DateTime.Parse(dateScheduleData.Key);
+                foreach (var data in dateScheduleData.Value)
                 {
-                    var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == data.SubjectId);
-
-                    var schedule = new Schedule
+                    if (data.SubjectId != 0)
                     {
-                        GroupId = group.Id_Group,
-                        Group = group,
-                        DayOfWeek = data.DayOfWeek,
-                        LessonNumber = data.LessonNumber,
-                        SubjectId = subject?.Id_Subject ?? 0,
-                        Subject = subject
-                    };
-                    _context.Schedules.Add(schedule);
+                        var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == data.SubjectId);
+
+                        var schedule = new Schedule
+                        {
+                            GroupId = group.Id_Group,
+                            Group = group,
+                            Date = date,
+                            LessonNumber = data.LessonNumber,
+                            SubjectId = subject?.Id_Subject ?? 0,
+                            Subject = subject
+                        };
+                        _context.Schedules.Add(schedule);
+                    }
                 }
             }
 
@@ -265,15 +274,16 @@ namespace Schedule_Constructor.Controllers
         }
 
 
+
         [HttpGet]
-        public IActionResult CheckConflicts(int groupId, int dayOfWeek, int lessonNumber, int subjectId)
+        public IActionResult CheckConflicts(int groupId, DateTime date, int lessonNumber, int subjectId)
         {
             var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == subjectId);
 
             // Check for conflicts with other groups
             var conflictingSchedules = _context.Schedules
                 .Include(s => s.Group)
-                .Where(s => s.DayOfWeek == dayOfWeek && s.LessonNumber == lessonNumber && s.Subject.Teacher == subject.Teacher && s.GroupId != groupId)
+                .Where(s => s.Date == date && s.LessonNumber == lessonNumber && s.Subject.Teacher == subject.Teacher && s.GroupId != groupId)
                 .ToList();
 
             if (conflictingSchedules.Count > 0)
@@ -374,21 +384,24 @@ namespace Schedule_Constructor.Controllers
             return new EmptyResult();
         }
 
-
-        public IActionResult ScheduleDelete(int groupId)
+        public IActionResult ScheduleDelete(int groupId, DateTime? startDate, DateTime? endDate)
         {
             var group = _context.Groups.FirstOrDefault(g => g.Id_Group == groupId);
             if (group == null)
             {
                 return NotFound();
             }
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
             return View(group);
         }
 
-        [HttpPost, ActionName("ScheduleDelete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ScheduleDeleteConfirmed(int groupId)
         {
+            _logger.LogInformation("ScheduleDeleteConfirmed called with groupId: {groupId}", groupId);
+
             var schedulesToRemove = _context.Schedules.Where(s => s.GroupId == groupId).ToList();
             if (schedulesToRemove.Any())
             {
@@ -404,6 +417,8 @@ namespace Schedule_Constructor.Controllers
             }
             return RedirectToAction(nameof(Schedules));
         }
+
+
 
 
     }

@@ -3,6 +3,8 @@
     var groups = ViewBag.Groups as List<Group>;
     var allSubjects = ViewBag.AllSubjects as List<Subject>;
     var selectedGroup = ViewBag.Group as Group;
+    var startDate = ViewBag.StartDate as DateTime?;
+    var endDate = ViewBag.EndDate as DateTime?;
     int daysInWeek = 6;
     string[] daysOfWeek = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" };
 }
@@ -22,6 +24,14 @@
                 }
             </select>
         </div>
+        <div class="form-group">
+            <label for="startDate">Начальная дата:</label>
+            <input type="date" id="startDate" name="startDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="endDate">Конечная дата:</label>
+            <input type="date" id="endDate" name="endDate" class="form-control" />
+        </div>
         <br />
         <button type="submit" class="btn btn-danger">Создать расписание</button>
     </form>
@@ -30,103 +40,109 @@ else
 {
     <h3>Группа: @selectedGroup.Name_Group</h3>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>День недели</th>
-                <th>1 пара</th>
-                <th>2 пара</th>
-                <th>3 пара</th>
-                <th>4 пара</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int dayOfWeek = 0; dayOfWeek < daysInWeek; dayOfWeek++)
-            {
+    @if (startDate.HasValue && endDate.HasValue)
+    {
+        <h4>Диапазон дат: @startDate.Value.ToString("dd.MM.yyyy") - @endDate.Value.ToString("dd.MM.yyyy")</h4>
+
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@daysOfWeek[dayOfWeek]</td>
-                    @for (int lessonNumber = 0; lessonNumber < 4; lessonNumber++)
-                    {
-                        string selectName = $"schedule[{dayOfWeek}][{lessonNumber}]";
-                        <td>
-                            @{
-                                string onchangeAttribute = "onchange=\"updateSchedule(this)\"";
-                            }
-                            <select class="form-control" name="@selectName" @Html.Raw(onchangeAttribute)>
-                                <option class="unselected" value=""></option>
-                                @foreach (var subject in allSubjects)
-                                {
-                                    <option value="@subject.Id_Subject">@subject.Name_Subject (@subject.Teacher)</option>
-                                }
-                            </select>
-
-                        </td>
-                    }
+                    <th>Дата</th>
+                    <th>1 пара</th>
+                    <th>2 пара</th>
+                    <th>3 пара</th>
+                    <th>4 пара</th>
                 </tr>
+            </thead>
+            <tbody>
+                @for (DateTime date = startDate.Value; date <= endDate.Value; date = date.AddDays(1))
+                {
+                    if (date.DayOfWeek != DayOfWeek.Sunday)
+                    {
+                        int dayOfWeek = (int)date.DayOfWeek;
+                        <tr>
+                            <td>@date.ToString("dd.MM.yyyy") (@daysOfWeek[dayOfWeek - 1])</td>
+                            @for (int lessonNumber = 0; lessonNumber < 4; lessonNumber++)
+                            {
+                                string selectName = $"schedule[{date.ToString("yyyy-MM-dd")}][{lessonNumber}]";
+                                <td>
+                                    @{
+                                        string onchangeAttribute = "onchange=\"updateSchedule(this)\"";
+                                    }
+                                    <select class="form-control" name="@selectName" @Html.Raw(onchangeAttribute)>
+                                        <option class="unselected" value=""></option>
+                                        @foreach (var subject in allSubjects)
+                                        {
+                                            <option value="@subject.Id_Subject">@subject.Name_Subject (@subject.Teacher)</option>
+                                        }
+                                    </select>
+
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <button id="send-button" class="btn btn-danger">Сохранить</button>
+
+        <script>
+            // Сбор данных
+            function collectScheduleData() {
+                var scheduleData = [];
+                var selects = document.querySelectorAll('select[name^="schedule"]');
+                for (var i = 0; i < selects.length; i++) {
+                    var select = selects[i];
+                    var date = select.name.split('[')[1].slice(0, -1);
+                    var lessonNumber = select.name.split('[')[2].slice(0, -1);
+                    var subjectId = select.value || "0"; // Установка значения subjectId в 0 для пустых занятий
+                    scheduleData.push({
+                        date: date,
+                        lessonNumber: lessonNumber,
+                        subjectId: subjectId
+                    });
+                }
+                return scheduleData;
             }
-        </tbody>
-    </table>
 
-    <button id="send-button" class="btn btn-danger">Сохранить</button>
-
-    <script>
-        // Сбор данных
-        function collectScheduleData() {
-            var scheduleData = [];
-            var selects = document.querySelectorAll('select[name^="schedule"]');
-            for (var i = 0; i < selects.length; i++) {
-                var select = selects[i];
-                var dayOfWeek = select.name.split('[')[1].slice(0, -1);
-                var lessonNumber = select.name.split('[')[2].slice(0, -1);
-                var subjectId = select.value || "0"; // Установка значения subjectId в 0 для пустых занятий
-                scheduleData.push({
-                    dayOfWeek: dayOfWeek,
-                    lessonNumber: lessonNumber,
-                    subjectId: subjectId
+            // Отправка данных на сервер
+            function sendScheduleData(scheduleData) {
+                var groupId = @selectedGroup.Id_Group;
+                var data = { group: groupId, scheduleData: scheduleData };
+                $.ajax({
+                    type: 'POST',
+                    url: '/Schedule/Save',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        window.location.href = '/Schedule';
+                    }
                 });
             }
-            return scheduleData;
-        }
 
-
-        // Отправка данных на сервер
-        function sendScheduleData(scheduleData) {
-            var groupId = @selectedGroup.Id_Group;
-            var data = { group: groupId, scheduleData: scheduleData };
-            $.ajax({
-                type: 'POST',
-                url: '/Schedule/Save',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function (response) {
-                    window.location.href = '/Schedule';
-                }
+            // Кнопка для отправки данных
+            $('#send-button').on('click', function () {
+                var scheduleData = collectScheduleData();
+                sendScheduleData(scheduleData);
             });
-        }
 
-        // Кнопка для отправки данных
-        $('#send-button').on('click', function () {
-            var scheduleData = collectScheduleData();
-            sendScheduleData(scheduleData);
-        });
+            // Проверка доступности преподавателя
+            function updateSchedule(selectElement) {
+                var date = selectElement.name.split('[')[1].slice(0, -1);
+                var lessonNumber = selectElement.name.split('[')[2].slice(0, -1);
+                var subjectId = selectElement.value;
+                var teacher = selectElement.options[selectElement.selectedIndex].text.split('(')[1].slice(0, -1);
 
-        // Проверка доступности преподавателя
-        function updateSchedule(selectElement) {
-            var dayOfWeek = selectElement.name.split('[')[1].slice(0, -1);
-            var lessonNumber = selectElement.name.split('[')[2].slice(0, -1);
-            var subjectId = selectElement.value;
-            var teacher = selectElement.options[selectElement.selectedIndex].text.split('(')[1].slice(0, -1);
-
-            // Проверка, назначен ли выбранный преподаватель уже другой группе в то же время
-            $.get('/Schedule/CheckTeacherAvailability', { dayOfWeek: dayOfWeek, lessonNumber: lessonNumber, teacher: teacher }, function (data) {
-                if (data.isAvailable == false) {
-                    var groups = data.groups.join(', ');
-                    alert(`Предупреждение: ${teacher} уже проводит занятие у другой группы (${groups}) в это время.`);
-                }
-            });
-        }
-
-
-
-    </script>
+                // Проверка, назначен ли выбранный преподаватель уже другой группе в то же время
+                $.get('/Schedule/CheckTeacherAvailability', { date: date, lessonNumber: lessonNumber, teacher: teacher }, function (data) {
+                    if (data.isAvailable == false) {
+                        var groups = data.groups.join(', ');
+                        alert(`Предупреждение: ${teacher} уже проводит занятие у другой группы (${groups}) в это время.`);
+                    }
+                });
+            }
+        </script>
+    }
 }
+

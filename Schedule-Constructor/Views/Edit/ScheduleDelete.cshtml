@@ -6,36 +6,13 @@
 
 <h1>Удаление расписания</h1>
 
-<h3>Вы уверены, что хотите удалить расписание для группы "@Model.Name_Group"?</h3>
+<h4>Вы уверены, что хотите удалить расписание для группы "@Model.Name_Group"?</h4>
+<hr />
 
-<form asp-action="ScheduleDelete" asp-route-groupId="@Model.Id_Group">
+<form asp-action="ScheduleDeleteConfirmed" method="post">
     <input type="hidden" name="groupId" value="@Model.Id_Group" />
-    <input type="submit" value="Удалить" class="btn btn-danger" />
-    <a asp-action="Schedules" class="btn btn-primary">Назад к списку</a>
+    <div class="form-group">
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Schedules">Назад к списку</a>
+    </div>
 </form>
-
-@section Scripts {
-    <script type="text/javascript">
-        $(function () {
-            $('#groupSelect').on('change', function () {
-                var groupId = $(this).val();
-                if (groupId) {
-                    window.location.href = '/Edit/Schedules?groupId=' + groupId;
-                } else {
-                    window.location.href = '/Edit/Schedules';
-                }
-            });
-
-            var messageType = '@TempData["messageType"]';
-            var message = '@TempData["message"]';
-            if (message) {
-                if (messageType === 'success') {
-                    toastr.success(message);
-                } else if (messageType === 'error') {
-                    toastr.error(message);
-                }
-            }
-        });
-    </script>
-}
-

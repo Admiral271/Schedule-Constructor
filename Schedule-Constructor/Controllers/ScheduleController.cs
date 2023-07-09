@@ -3,6 +3,8 @@ using Schedule_Constructor.Models;
 using Schedule_Constructor.Models.DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace Schedule_Constructor.Controllers
 {
@@ -31,7 +33,7 @@ namespace Schedule_Constructor.Controllers
         }
 
         [HttpPost]
-        public IActionResult Schedule(int group)
+        public IActionResult Schedule(int group, DateTime startDate, DateTime endDate)
         {
             // Получение группы из базы данных
             var selectedGroup = applicationDbContext.Groups.FirstOrDefault(g => g.Id_Group == group);
@@ -42,18 +44,20 @@ namespace Schedule_Constructor.Controllers
             // Передача данных в представление
             ViewBag.Group = selectedGroup;
             ViewBag.AllSubjects = allSubjects;
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
 
             return View("Index");
         }
 
         [HttpGet]
-        public IActionResult CheckTeacherAvailability(int dayOfWeek, int lessonNumber, string teacher)
+        public IActionResult CheckTeacherAvailability(DateTime date, int lessonNumber, string teacher)
         {
             // Получите список всех групп, которым назначен выбранный преподаватель в то же время
             var groups = applicationDbContext.Schedules
                 .Include(s => s.Subject)
                 .Include(s => s.Group)
-                .Where(s => s.DayOfWeek == dayOfWeek && s.LessonNumber == lessonNumber && s.Subject.Teacher == teacher)
+                .Where(s => s.Date == date && s.LessonNumber == lessonNumber && s.Subject.Teacher == teacher)
                 .Select(s => s.Group.Name_Group)
                 .ToList();
 
@@ -66,9 +70,6 @@ namespace Schedule_Constructor.Controllers
                 return Json(new { isAvailable = true });
             }
         }
-
-
-
 
         [HttpPost]
         [Route("/Schedule/Save")]
@@ -92,7 +93,7 @@ namespace Schedule_Constructor.Controllers
                     var schedule = new Schedule
                     {
                         GroupId = data.Group,
-                        DayOfWeek = scheduleData.DayOfWeek,
+                        Date = DateTime.Parse(scheduleData.Date),
                         LessonNumber = scheduleData.LessonNumber,
                         SubjectId = scheduleData.SubjectId
                     };
@@ -103,6 +104,5 @@ namespace Schedule_Constructor.Controllers
 
             return RedirectToAction("Index");
         }
-
     }
 }

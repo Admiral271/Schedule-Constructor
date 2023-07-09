@@ -10,7 +10,7 @@ namespace Schedule_Constructor.Models
 
     public class ScheduleData
     {
-        public int DayOfWeek { get; set; }
+        public string Date { get; set; }
         public int LessonNumber { get; set; }
         public int SubjectId { get; set; }
     }
