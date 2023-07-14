@@ -264,7 +264,10 @@ Update-Database
                 });
                 let text = originalText[index];
                 let p = $("<p></p>").text(text);
-                p.css("marginLeft", "20px");
+                p.css({
+                    marginLeft: "20px",
+                    color: "#333"
+                });
                 modalContent.append(modalImg);
                 modalContent.append(p);
                 let closeBtn = $("<button>×</button>");

@@ -56,13 +56,17 @@ body.dark-theme {
     body.dark-theme .card {
         color: #333;
     }
-#theme-switch {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
+  
+
+
+
+    #theme-switch {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 5px 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
     #theme-switch:focus {
         outline: none;
