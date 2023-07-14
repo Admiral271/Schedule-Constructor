@@ -1,18 +1,70 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #F0F0F0;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
+
+.center-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+body.dark-theme {
+    background-color: #333;
+    color: #fff;
+}
+
+    body.dark-theme a {
+        color: #fff;
+    }
+        body.dark-theme a:hover {
+            background-color: transparent;
+        }
+
+    body.dark-theme .navbar-light {
+        background-color: #333;
+    }
+
+        body.dark-theme .navbar-light .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+    body.dark-theme .rounded-block {
+        background-color: #555;
+    }
+
+    body.dark-theme .list-group-item {
+        color: #fff;
+    }
+
+    body.dark-theme .list-group-item-action {
+        color: #fff;
+    }
+
+    body.dark-theme .button__back {
+        color: #fff;
+    }
+    body.dark-theme th,
+    body.dark-theme td,
+    body.dark-theme tr {
+        color: #fff;
+    }
+    body.dark-theme .card {
+        color: #333;
+    }
+#theme-switch {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    #theme-switch:focus {
+        outline: none;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    }

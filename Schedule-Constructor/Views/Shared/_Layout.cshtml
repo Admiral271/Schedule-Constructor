@@ -10,22 +10,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #F0F0F0;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 600;
-        }
-
-        .navbar-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
@@ -36,8 +22,8 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center">
-                    <ul class="navbar-nav">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-grow-1">
+                    <ul class="navbar-nav me-auto center-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
@@ -51,13 +37,21 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Choose">Данные</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark button" asp-area="" asp-controller="Home" asp-action="Settings">
+                                <span class="button__front">
+                                    <i class="fa fa-cog"></i>
+                                </span>
+                                <span class="button__back">Настройки</span>
+                            </a>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </nav>
     </header>
-
-
-
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -76,6 +70,26 @@
     
 
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        var theme = localStorage.getItem('theme');
+
+        if (theme) {
+            document.body.classList.add(theme);
+            if (theme === 'dark-theme') {
+                document.querySelector('.navbar').classList.remove('navbar-light', 'bg-white');
+                document.querySelector('.navbar').classList.add('navbar-dark', 'bg-dark');
+                document.querySelectorAll('.nav-link').forEach(function (el) {
+                    el.classList.remove('text-dark');
+                    el.classList.add('text-light');
+                });
+                document.querySelectorAll('.list-group-item').forEach(function (el) {
+                    el.style.color = '#fff';
+                    el.style.backgroundColor = '#333';
+                });
+            }
+        }
+    </script>
+
 </body>
 
 </html>

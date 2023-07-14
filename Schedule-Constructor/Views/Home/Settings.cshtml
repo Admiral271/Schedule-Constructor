@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Настройки";
+}
+
+<h2>Настройки</h2>
+
+<label for="theme-switch">Цветовая тема:</label>
+<select id="theme-switch">
+    <option value="light">Светлая</option>
+    <option value="dark">Темная</option>
+</select>
+
+@section Scripts {
+    <script>
+        
+        var theme = localStorage.getItem('theme');
+
+        
+        if (theme) {
+            document.body.classList.add(theme);
+            document.getElementById('theme-switch').value = theme;
+            if (theme === 'dark-theme') {
+                document.querySelector('.navbar').classList.remove('navbar-light', 'bg-white');
+                document.querySelector('.navbar').classList.add('navbar-dark', 'bg-dark');
+                document.querySelectorAll('.nav-link').forEach(function (el) {
+                    el.classList.remove('text-dark');
+                    el.classList.add('text-light');
+                });
+                document.querySelectorAll('.list-group-item').forEach(function (el) {
+                    el.style.color = '#fff';
+                    el.style.backgroundColor = '#333';
+                });
+            }
+        }
+
+        document.getElementById('theme-switch').addEventListener('change', function () {
+            if (this.value === 'dark') {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark-theme');
+                document.querySelector('.navbar').classList.remove('navbar-light', 'bg-white');
+                document.querySelector('.navbar').classList.add('navbar-dark', 'bg-dark');
+                document.querySelectorAll('.nav-link').forEach(function (el) {
+                    el.classList.remove('text-dark');
+                    el.classList.add('text-light');
+                });
+                document.querySelectorAll('.list-group-item').forEach(function (el) {
+                    el.style.color = '#fff';
+                    el.style.backgroundColor = '#333';
+                });
+            } else {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light-theme');
+                document.querySelector('.navbar').classList.remove('navbar-dark', 'bg-dark');
+                document.querySelector('.navbar').classList.add('navbar-light', 'bg-white');
+                document.querySelectorAll('.nav-link').forEach(function (el) {
+                    el.classList.remove('text-light');
+                    el.classList.add('text-dark');
+                });
+                document.querySelectorAll('.list-group-item').forEach(function (el) {
+                    el.style.color = '';
+                    el.style.backgroundColor = '';
+                });
+            }
+        });
+    </script>
+}
