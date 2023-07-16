@@ -10,7 +10,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name_Subject)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th></th>
         </tr>
@@ -20,12 +20,12 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name_Subject)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <a asp-action="SubjectEdit" asp-route-id="@item.Id_Subject" class="btn btn-success">Редактировать</a> 
-                    <a asp-action="SubjectDetails" asp-route-id="@item.Id_Subject" class="btn btn-primary">Подробнее</a> 
-                    <a asp-action="SubjectDelete" asp-route-id="@item.Id_Subject" class="btn btn-danger">Удалить</a>
+                    <a asp-action="SubjectEdit" asp-route-id="@item.Id" class="btn btn-success">Редактировать</a> 
+                    <a asp-action="SubjectDetails" asp-route-id="@item.Id" class="btn btn-primary">Подробнее</a> 
+                    <a asp-action="SubjectDelete" asp-route-id="@item.Id" class="btn btn-danger">Удалить</a>
                 </td>
             </tr>
         }

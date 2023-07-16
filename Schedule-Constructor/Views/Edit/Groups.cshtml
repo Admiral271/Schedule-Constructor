@@ -10,7 +10,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name_Group)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th></th>
         </tr>
@@ -20,12 +20,12 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name_Group)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <a asp-action="GroupEdit" asp-route-id="@item.Id_Group" class="btn btn-success">Редактировать</a> 
-                    <a asp-action="GroupDetails" asp-route-id="@item.Id_Group" class="btn btn-primary">Подробнее</a> 
-                    <a asp-action="GroupDelete" asp-route-id="@item.Id_Group" class="btn btn-danger">Удалить</a>
+                    <a asp-action="GroupEdit" asp-route-id="@item.Id" class="btn btn-success">Редактировать</a> 
+                    <a asp-action="GroupDetails" asp-route-id="@item.Id" class="btn btn-primary">Подробнее</a> 
+                    <a asp-action="GroupDelete" asp-route-id="@item.Id" class="btn btn-danger">Удалить</a>
                 </td>
             </tr>
         }

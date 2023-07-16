@@ -20,7 +20,7 @@
             <select id="group" name="group" class="form-control">
                 @foreach (var group in groups)
                 {
-                    <option value="@group.Id_Group">@group.Name_Group</option>
+                    <option value="@group.Id">@group.Name</option>
                 }
             </select>
         </div>
@@ -38,7 +38,7 @@
 }
 else
 {
-    <h3>Группа: @selectedGroup.Name_Group</h3>
+    <h3>Группа: @selectedGroup.Name</h3>
 
     @if (startDate.HasValue && endDate.HasValue)
     {
@@ -73,7 +73,7 @@ else
                                         <option class="unselected" value=""></option>
                                         @foreach (var subject in allSubjects)
                                         {
-                                            <option value="@subject.Id_Subject">@subject.Name_Subject (@subject.Teacher)</option>
+                                            <option value="@subject.Id">@subject.Name (@subject.Teacher)</option>
                                         }
                                     </select>
 
@@ -108,7 +108,7 @@ else
 
             // Отправка данных на сервер
             function sendScheduleData(scheduleData) {
-                var groupId = @selectedGroup.Id_Group;
+                var groupId = @selectedGroup.Id;
                 var data = { group: groupId, scheduleData: scheduleData };
                 $.ajax({
                     type: 'POST',

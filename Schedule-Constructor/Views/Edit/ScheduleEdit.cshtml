@@ -14,10 +14,10 @@
 <h4>Расписание</h4>
 <hr />
 
-<h3>Группа: @selectedGroup.Name_Group</h3>
+<h3>Группа: @selectedGroup.Name</h3>
 
-<form id="scheduleEditForm" asp-action="ScheduleEdit" asp-route-groupId="@selectedGroup.Id_Group">
-    <input type="hidden" name="groupId" value="@selectedGroup.Id_Group" />
+<form id="scheduleEditForm" asp-action="ScheduleEdit" asp-route-groupId="@selectedGroup.Id">
+    <input type="hidden" name="groupId" value="@selectedGroup.Id" />
     <table class="table">
         <thead>
             <tr>
@@ -47,8 +47,8 @@
                                     <option value=""></option>
                                     @foreach (var subject in allSubjects)
                                     {
-                                        <option value="@subject.Id_Subject" selected="@(lessonSchedule != null && lessonSchedule.SubjectId == subject.Id_Subject)">
-                                            @subject.Name_Subject (@subject.Teacher)
+                                        <option value="@subject.Id" selected="@(lessonSchedule != null && lessonSchedule.SubjectId == subject.Id)">
+                                            @subject.Name (@subject.Teacher)
                                         </option>
                                     }
                                 </select>

@@ -36,7 +36,7 @@ namespace Schedule_Constructor.Controllers
         public IActionResult Schedule(int group, DateTime startDate, DateTime endDate)
         {
             // Получение группы из базы данных
-            var selectedGroup = applicationDbContext.Groups.FirstOrDefault(g => g.Id_Group == group);
+            var selectedGroup = applicationDbContext.Groups.FirstOrDefault(g => g.Id == group);
 
             // Получение списка всех предметов
             var allSubjects = applicationDbContext.Subjects.ToList();
@@ -58,7 +58,7 @@ namespace Schedule_Constructor.Controllers
                 .Include(s => s.Subject)
                 .Include(s => s.Group)
                 .Where(s => s.Date == date && s.LessonNumber == lessonNumber && s.Subject.Teacher == teacher)
-                .Select(s => s.Group.Name_Group)
+                .Select(s => s.Group.Name)
                 .ToList();
 
             if (groups.Count > 0)

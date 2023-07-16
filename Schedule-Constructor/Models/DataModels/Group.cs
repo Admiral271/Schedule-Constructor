@@ -5,8 +5,8 @@ namespace Schedule_Constructor.Models.DataModels
     public class Group
     {
         [Key]
-        public int Id_Group { get; set; }
+        public int Id { get; set; }
         [Display(Name = "Название")]
-        public string Name_Group { get; set; }
+        public string Name { get; set; }
     }
 }

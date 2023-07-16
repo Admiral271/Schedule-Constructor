@@ -34,7 +34,7 @@ namespace Schedule_Constructor.Controllers
 
         public IActionResult GroupDetails(int id)
         {
-            var group = _context.Groups.FirstOrDefault(g => g.Id_Group == id);
+            var group = _context.Groups.FirstOrDefault(g => g.Id == id);
             if (group == null)
             {
                 return NotFound();
@@ -43,7 +43,7 @@ namespace Schedule_Constructor.Controllers
         }
         public IActionResult GroupEdit(int id)
         {
-            var group = _context.Groups.FirstOrDefault(g => g.Id_Group == id);
+            var group = _context.Groups.FirstOrDefault(g => g.Id == id);
             if (group == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace Schedule_Constructor.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult GroupEdit(int id, Group group)
         {
-            if (id != group.Id_Group)
+            if (id != group.Id)
             {
                 return NotFound();
             }
@@ -75,7 +75,7 @@ namespace Schedule_Constructor.Controllers
 
         public IActionResult GroupDelete(int id)
         {
-            var group = _context.Groups.FirstOrDefault(g => g.Id_Group == id);
+            var group = _context.Groups.FirstOrDefault(g => g.Id == id);
             if (group == null)
             {
                 return NotFound();
@@ -87,7 +87,7 @@ namespace Schedule_Constructor.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult GroupDeleteConfirmed(int id)
         {
-            var group = _context.Groups.FirstOrDefault(g => g.Id_Group == id);
+            var group = _context.Groups.FirstOrDefault(g => g.Id == id);
             if (group != null)
             {
                 _context.Groups.Remove(group);
@@ -112,7 +112,7 @@ namespace Schedule_Constructor.Controllers
 
         public IActionResult SubjectDetails(int id)
         {
-            var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == id);
+            var subject = _context.Subjects.FirstOrDefault(s => s.Id == id);
             if (subject == null)
             {
                 return NotFound();
@@ -121,7 +121,7 @@ namespace Schedule_Constructor.Controllers
         }
         public IActionResult SubjectEdit(int id)
         {
-            var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == id);
+            var subject = _context.Subjects.FirstOrDefault(s => s.Id == id);
             if (subject == null)
             {
                 return NotFound();
@@ -133,7 +133,7 @@ namespace Schedule_Constructor.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SubjectEdit(int id, Subject subject)
         {
-            if (id != subject.Id_Subject)
+            if (id != subject.Id)
             {
                 return NotFound();
             }
@@ -154,7 +154,7 @@ namespace Schedule_Constructor.Controllers
 
         public IActionResult SubjectDelete(int id)
         {
-            var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == id);
+            var subject = _context.Subjects.FirstOrDefault(s => s.Id == id);
             if (subject == null)
             {
                 return NotFound();
@@ -166,7 +166,7 @@ namespace Schedule_Constructor.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SubjectDeleteConfirmed(int id)
         {
-            var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == id);
+            var subject = _context.Subjects.FirstOrDefault(s => s.Id == id);
             if (subject != null)
             {
                 _context.Subjects.Remove(subject);
@@ -194,7 +194,7 @@ namespace Schedule_Constructor.Controllers
                 return View();
             }
 
-            var selectedGroup = groups.FirstOrDefault(g => g.Id_Group == groupId);
+            var selectedGroup = groups.FirstOrDefault(g => g.Id == groupId);
             if (selectedGroup == null)
             {
                 return NotFound();
@@ -210,7 +210,7 @@ namespace Schedule_Constructor.Controllers
 
         public IActionResult ScheduleEdit(int groupId)
         {
-            var group = _context.Groups.FirstOrDefault(g => g.Id_Group == groupId);
+            var group = _context.Groups.FirstOrDefault(g => g.Id == groupId);
             if (group == null)
             {
                 return NotFound();
@@ -231,7 +231,7 @@ namespace Schedule_Constructor.Controllers
                 return RedirectToAction("Schedules", "Edit");
             }
 
-            var group = _context.Groups.FirstOrDefault(g => g.Id_Group == groupId);
+            var group = _context.Groups.FirstOrDefault(g => g.Id == groupId);
             if (group == null)
             {
                 TempData["messageType"] = "error";
@@ -240,7 +240,7 @@ namespace Schedule_Constructor.Controllers
             }
 
             // Remove existing schedules for the selected group
-            var schedulesToRemove = _context.Schedules.Where(s => s.GroupId == group.Id_Group).ToList();
+            var schedulesToRemove = _context.Schedules.Where(s => s.GroupId == group.Id).ToList();
             _context.Schedules.RemoveRange(schedulesToRemove);
 
             // Add new schedules
@@ -251,15 +251,15 @@ namespace Schedule_Constructor.Controllers
                 {
                     if (data.SubjectId != 0)
                     {
-                        var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == data.SubjectId);
+                        var subject = _context.Subjects.FirstOrDefault(s => s.Id == data.SubjectId);
 
                         var schedule = new Schedule
                         {
-                            GroupId = group.Id_Group,
+                            GroupId = group.Id,
                             Group = group,
                             Date = date,
                             LessonNumber = data.LessonNumber,
-                            SubjectId = subject?.Id_Subject ?? 0,
+                            SubjectId = subject?.Id ?? 0,
                             Subject = subject
                         };
                         _context.Schedules.Add(schedule);
@@ -278,7 +278,7 @@ namespace Schedule_Constructor.Controllers
         [HttpGet]
         public IActionResult CheckConflicts(int groupId, DateTime date, int lessonNumber, int subjectId)
         {
-            var subject = _context.Subjects.FirstOrDefault(s => s.Id_Subject == subjectId);
+            var subject = _context.Subjects.FirstOrDefault(s => s.Id == subjectId);
 
             // Check for conflicts with other groups
             var conflictingSchedules = _context.Schedules
@@ -289,7 +289,7 @@ namespace Schedule_Constructor.Controllers
             if (conflictingSchedules.Count > 0)
             {
                 // Generate a list of conflicting group names
-                var conflictingGroupNames = string.Join(", ", conflictingSchedules.Select(s => s.Group.Name_Group));
+                var conflictingGroupNames = string.Join(", ", conflictingSchedules.Select(s => s.Group.Name));
 
                 // Generate an alert message
                 return Json(new { hasConflicts = true, message = $"Преподаватель {subject.Teacher} ведёт занятие у другой группы ({conflictingGroupNames}) в это время" });
@@ -308,7 +308,7 @@ namespace Schedule_Constructor.Controllers
             Console.WriteLine("Количество данных расписания для группы {0}: {1}", groupId, scheduleData.Count);
             foreach (var schedule in scheduleData)
             {
-                Console.WriteLine("День недели: {0}, Номер пары: {1}, Предмет: {2}", schedule.DayOfWeek, schedule.LessonNumber, schedule.Subject?.Name_Subject);
+                Console.WriteLine("День недели: {0}, Номер пары: {1}, Предмет: {2}", schedule.DayOfWeek, schedule.LessonNumber, schedule.Subject?.Name);
             }
 
             // Проверка наличия данных расписания для группы
@@ -358,14 +358,14 @@ namespace Schedule_Constructor.Controllers
                 for (int lessonNumber = 0; lessonNumber < 4; lessonNumber++)
                 {
                     var schedule = scheduleData.FirstOrDefault(s => s.DayOfWeek == dayOfWeek && s.LessonNumber == lessonNumber);
-                    var subjectName = schedule?.Subject?.Name_Subject ?? "";
+                    var subjectName = schedule?.Subject?.Name ?? "";
                     Console.WriteLine("День недели: {0}, Номер пары: {1}, Предмет: {2}", dayOfWeek, lessonNumber, subjectName);
                 }
                 gfx.DrawString(daysOfWeek[dayOfWeek], font, XBrushes.Black, x + 10, y + (dayOfWeek + 1) * rowHeight + rowHeight / 2);
                 for (int lessonNumber = 0; lessonNumber < 4; lessonNumber++)
                 {
                     var schedule = scheduleData.FirstOrDefault(s => s.DayOfWeek == dayOfWeek && s.LessonNumber == lessonNumber);
-                    var subjectName = schedule?.Subject?.Name_Subject ?? "";
+                    var subjectName = schedule?.Subject?.Name ?? "";
                     gfx.DrawString(subjectName, font, XBrushes.Black, x + (lessonNumber + 1) * colWidth + 10, y + (dayOfWeek + 1) * rowHeight + rowHeight / 2);
                 }
             }
@@ -386,7 +386,7 @@ namespace Schedule_Constructor.Controllers
 
         public IActionResult ScheduleDelete(int groupId, DateTime? startDate, DateTime? endDate)
         {
-            var group = _context.Groups.FirstOrDefault(g => g.Id_Group == groupId);
+            var group = _context.Groups.FirstOrDefault(g => g.Id == groupId);
             if (group == null)
             {
                 return NotFound();

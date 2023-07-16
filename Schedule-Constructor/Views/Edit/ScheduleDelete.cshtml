@@ -6,11 +6,11 @@
 
 <h1>Удаление расписания</h1>
 
-<h4>Вы уверены, что хотите удалить расписание для группы "@Model.Name_Group"?</h4>
+<h4>Вы уверены, что хотите удалить расписание для группы "@Model.Name"?</h4>
 <hr />
 
 <form asp-action="ScheduleDeleteConfirmed" method="post">
-    <input type="hidden" name="groupId" value="@Model.Id_Group" />
+    <input type="hidden" name="groupId" value="@Model.Id" />
     <div class="form-group">
         <input type="submit" value="Удалить" class="btn btn-danger" /> |
         <a asp-action="Schedules">Назад к списку</a>
