@@ -1,3 +1,0 @@
-ScheduleDelete called with groupId: 5, startDate: , endDate: 
-ScheduleDeleteConfirmed called with groupId: 0
-Schedules not found for removal with groupId: 0
