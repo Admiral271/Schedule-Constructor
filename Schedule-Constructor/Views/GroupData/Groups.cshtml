@@ -4,7 +4,10 @@
     ViewData["Title"] = "Группы";
 }
 
-<h1>Группы</h1>
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Группы</h1>
+    <a asp-action="Groups" asp-controller="GroupAdd" class="btn btn-primary">Добавить</a>
+</div>
 
 <table class="table">
     <thead>
@@ -23,9 +26,9 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <a asp-action="GroupEdit" asp-route-id="@item.Id" class="btn btn-success">Редактировать</a> 
-                    <a asp-action="GroupDetails" asp-route-id="@item.Id" class="btn btn-primary">Подробнее</a> 
-                    <a asp-action="GroupDelete" asp-route-id="@item.Id" class="btn btn-danger">Удалить</a>
+                    <a asp-action="GroupEdit" asp-controller="GroupEdit" asp-route-id="@item.Id" class="btn btn-success">Редактировать</a>
+                    @* <a asp-action="GroupDetails" asp-route-id="@item.Id" class="btn btn-primary">Подробнее</a>*@
+                    <a asp-action="GroupDelete" asp-controller="GroupDelete" asp-route-id="@item.Id" class="btn btn-danger">Удалить</a>
                 </td>
             </tr>
         }
@@ -47,4 +50,3 @@
         });
     </script>
 }
-

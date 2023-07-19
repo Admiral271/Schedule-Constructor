@@ -1,20 +1,18 @@
-﻿using Schedule_Constructor.Data;
-using Schedule_Constructor.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Schedule_Constructor.Data;
 using Schedule_Constructor.Models.DataModels;
-using Microsoft.AspNetCore.Mvc;
+using Schedule_Constructor.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 
-namespace Schedule_Constructor.Controllers
+namespace Schedule_Constructor.Controllers.DataControllers.Add
 {
-    public class ScheduleController : Controller
+    public class ScheduleAddController : Controller
     {
-        private readonly ApplicationDbContext applicationDbContext;
+        private readonly ApplicationDbContext _context;
 
-        public ScheduleController(ApplicationDbContext context)
+        public ScheduleAddController(ApplicationDbContext context)
         {
-            applicationDbContext = context;
+            _context = context;
         }
 
         [HttpGet]
@@ -22,11 +20,11 @@ namespace Schedule_Constructor.Controllers
         {
             ViewData["Title"] = "Конструктор";
 
-            var groups = applicationDbContext.Groups.ToList();
+            var groups = _context.Groups.ToList();
             ViewBag.Groups = groups;
 
             // Получение списка всех предметов
-            var allSubjects = applicationDbContext.Subjects.ToList();
+            var allSubjects = _context.Subjects.ToList();
             ViewBag.AllSubjects = allSubjects;
 
             return View();
@@ -36,10 +34,10 @@ namespace Schedule_Constructor.Controllers
         public IActionResult Schedule(int group, DateTime startDate, DateTime endDate)
         {
             // Получение группы из базы данных
-            var selectedGroup = applicationDbContext.Groups.FirstOrDefault(g => g.Id == group);
+            var selectedGroup = _context.Groups.FirstOrDefault(g => g.Id == group);
 
             // Получение списка всех предметов
-            var allSubjects = applicationDbContext.Subjects.ToList();
+            var allSubjects = _context.Subjects.ToList();
 
             // Передача данных в представление
             ViewBag.Group = selectedGroup;
@@ -54,7 +52,7 @@ namespace Schedule_Constructor.Controllers
         public IActionResult CheckTeacherAvailability(DateTime date, int lessonNumber, string teacher)
         {
             // Получите список всех групп, которым назначен выбранный преподаватель в то же время
-            var groups = applicationDbContext.Schedules
+            var groups = _context.Schedules
                 .Include(s => s.Subject)
                 .Include(s => s.Group)
                 .Where(s => s.Date == date && s.LessonNumber == lessonNumber && s.Subject.Teacher == teacher)
@@ -72,7 +70,7 @@ namespace Schedule_Constructor.Controllers
         }
 
         [HttpPost]
-        [Route("/Schedule/Save")]
+        [Route("/ScheduleAdd/Save")]
         public IActionResult SaveSchedule([FromBody] ScheduleViewModel data)
         {
             if (data == null || data.ScheduleData == null)
@@ -81,8 +79,8 @@ namespace Schedule_Constructor.Controllers
             }
 
             // Удаление существующего расписания для выбранной группы
-            var schedulesToRemove = applicationDbContext.Schedules.Where(s => s.GroupId == data.Group).ToList();
-            applicationDbContext.Schedules.RemoveRange(schedulesToRemove);
+            var schedulesToRemove = _context.Schedules.Where(s => s.GroupId == data.Group).ToList();
+            _context.Schedules.RemoveRange(schedulesToRemove);
 
             // Добавление новых данных расписания для выбранной группы
             foreach (var scheduleData in data.ScheduleData)
@@ -97,12 +95,12 @@ namespace Schedule_Constructor.Controllers
                         LessonNumber = scheduleData.LessonNumber,
                         SubjectId = scheduleData.SubjectId
                     };
-                    applicationDbContext.Schedules.Add(schedule);
+                    _context.Schedules.Add(schedule);
                 }
             }
-            applicationDbContext.SaveChanges();
+            _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "ScheduleAdd");
         }
     }
 }

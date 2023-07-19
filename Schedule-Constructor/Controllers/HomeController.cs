@@ -17,16 +17,6 @@ namespace Schedule_Constructor.Controllers
         {
             return View();
         }
-
-        public IActionResult DataEntry()
-        {
-            return View();
-        }
-
-        public IActionResult Schedule()
-        {
-            return View();
-        }
         public IActionResult Choose()
         {
             return View();
@@ -35,7 +25,6 @@ namespace Schedule_Constructor.Controllers
         {
             return View();
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

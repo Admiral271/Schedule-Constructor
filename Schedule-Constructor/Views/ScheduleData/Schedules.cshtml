@@ -52,13 +52,14 @@
         </tbody>
     </table>
 
-    <a asp-action="ScheduleEdit" asp-route-groupId="@selectedGroup.Id" class="btn btn-success">Редактировать расписание</a>
-    <a asp-action="ScheduleDelete" asp-route-groupId="@selectedGroup.Id" class="btn btn-danger">Удалить расписание</a>
-    <a asp-action="ExportToPdf" asp-route-groupId="@selectedGroup.Id" class="btn btn-primary">Экспорт в PDF</a>
+    <a asp-action="ScheduleEdit" asp-controller="ScheduleEdit" asp-route-groupId="@selectedGroup.Id" class="btn btn-success">Редактировать расписание</a>
+    <a asp-action="ScheduleDelete" asp-controller="ScheduleDelete" asp-route-groupId="@selectedGroup.Id" class="btn btn-danger">Удалить расписание</a>
+    <a asp-action="ExportToPdf" asp-controller="PDF" asp-route-groupId="@selectedGroup.Id" class="btn btn-primary">Экспорт в PDF</a>
 }
 else
 {
     <h3>Расписание не найдено</h3>
+    <a asp-action="Index" asp-controller="ScheduleAdd" class="btn btn-primary">Добавить</a>
 }
 
 @section Scripts {
@@ -67,9 +68,9 @@ else
             $('#groupSelect').on('change', function () {
                 var groupId = $(this).val();
                 if (groupId) {
-                    window.location.href = '/Edit/Schedules?groupId=' + groupId;
+                    window.location.href = '/ScheduleData/Schedules?groupId=' + groupId;
                 } else {
-                    window.location.href = '/Edit/Schedules';
+                    window.location.href = '/ScheduleData/Schedules';
                 }
             });
 

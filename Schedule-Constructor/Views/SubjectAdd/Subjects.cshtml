@@ -1,14 +1,22 @@
-﻿@model Schedule_Constructor.Models.DataModels.Group
+﻿@model Schedule_Constructor.Models.DataModels.Subject
 
 <div class="card">
     <div class="card-header">
-        Добавление новой группы
+        Добавление нового предмета
     </div>
     <div class="card-body">
-        <form asp-action="CreateGroup" asp-controller="DataEntry" method="post">
+        <form asp-action="CreateSubject" asp-controller="SubjectAdd" method="post">
             <div class="form-group">
-                <label asp-for="Name">Название группы</label>
+                <label asp-for="Name">Название предмета</label>
                 <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Cabinet">Кабинет</label>
+                <input asp-for="Cabinet" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher">Преподаватель</label>
+                <input asp-for="Teacher" class="form-control" />
             </div>
             <br />
             <button type="submit" class="btn btn-danger">Добавить</button>

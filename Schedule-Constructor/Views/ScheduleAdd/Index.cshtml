@@ -14,7 +14,7 @@
 
 @if (selectedGroup == null)
 {
-    <form method="post" action="@Url.Action("Schedule", "Schedule")">
+    <form method="post" action="@Url.Action("Schedule", "ScheduleAdd")">
         <div class="form-group">
             <label for="group">Выберите группу:</label>
             <select id="group" name="group" class="form-control">
@@ -112,11 +112,11 @@ else
                 var data = { group: groupId, scheduleData: scheduleData };
                 $.ajax({
                     type: 'POST',
-                    url: '/Schedule/Save',
+                    url: '/ScheduleAdd/Save',
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (response) {
-                        window.location.href = '/Schedule';
+                        window.location.href = '/ScheduleAdd';
                     }
                 });
             }
@@ -135,7 +135,7 @@ else
                 var teacher = selectElement.options[selectElement.selectedIndex].text.split('(')[1].slice(0, -1);
 
                 // Проверка, назначен ли выбранный преподаватель уже другой группе в то же время
-                $.get('/Schedule/CheckTeacherAvailability', { date: date, lessonNumber: lessonNumber, teacher: teacher }, function (data) {
+                $.get('/ScheduleAdd/CheckTeacherAvailability', { date: date, lessonNumber: lessonNumber, teacher: teacher }, function (data) {
                     if (data.isAvailable == false) {
                         var groups = data.groups.join(', ');
                         alert(`Предупреждение: ${teacher} уже проводит занятие у другой группы (${groups}) в это время.`);

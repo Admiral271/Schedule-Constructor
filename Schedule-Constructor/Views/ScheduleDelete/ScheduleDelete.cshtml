@@ -12,7 +12,7 @@
 <form asp-action="ScheduleDeleteConfirmed" method="post">
     <input type="hidden" name="groupId" value="@Model.Id" />
     <div class="form-group">
-        <input type="submit" value="Удалить" class="btn btn-danger" /> |
-        <a asp-action="Schedules">Назад к списку</a>
+        <input type="submit" value="Удалить" class="btn btn-danger" /> 
+        <a asp-action="Schedules" asp-controller="ScheduleData" class="btn btn-primary">Назад к списку</a>
     </div>
 </form>
