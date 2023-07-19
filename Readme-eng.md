@@ -1,4 +1,4 @@
-[Русский](Readme.md) | [English](Readme-eng.md)
+[Russian](Readme.md) | [English](Readme-eng.md)
 <br />
 <div align="center">
   <a href="https://github.com/Admiral271/Full-Schedule/">
