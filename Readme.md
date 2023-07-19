@@ -1,6 +1,7 @@
+[Русский](Readme.md) | [English](Readme-eng.md)
 <br />
 <div align="center">
-  [Русский](Readme.md) | [English](Readme-eng.md)
+  
   <a href="https://github.com/Admiral271/Full-Schedule/">
     <img src="https://avatars.mds.yandex.net/i?id=5d7baf25e9e80ce29487c8faea5e1073363cfed7-9709264-images-thumbs&n=13" alt="Logo" width="200" height="200">
   </a>
