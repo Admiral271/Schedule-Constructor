@@ -2,148 +2,91 @@
     ViewData["Title"] = "Главная страница";
 }
 
-<style>
-    a {
-        color: #0078D7;
-        text-decoration: none;
-    }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-    button {
-        background-color: #0078D7;
-        color: white;
-        border: none;
-        padding: 16px 24px;
-        border-radius: 50px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: all 0.2s ease-in-out;
-        width: 400px;
-    }
-
-        button:hover {
-            background-color: #0063B1;
-            transform: scale(1.05);
-        }
-
-    #toc ol {
-        list-style: none;
-        counter-reset: item;
-    }
-
-    #toc li:before {
-        content: counters(item, ".") " ";
-        counter-increment: item;
-    }
-
-    .toc-link {
-        text-decoration: none;
-        color: inherit;
-        transition: transform 0.2s;
-    }
-
-        .toc-link:hover {
-            transform: scale(1.1);
-            color: black;
-        }
-
-    .rounded-block {
-        border-radius: 20px;
-        background-color: white;
-        padding: 20px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .logoimg{
-        border-radius: 20px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .backimage {
-        background-image: url(https://catherineasquithgallery.com/uploads/posts/2021-02/1614390766_17-p-kniga-na-temnom-fone-24.jpg);
-        background-size: cover;
-        background-position: center;
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-    }
-    .backimage p {
-        color: white;
-    }
-
-        .backimage h1 {
-            color: white;
-        }
-
-        .backimage h2 {
-            color: white;
-        }
-
-</style>
-<div class="backimage">
-    <br />
-    <div class="text-center">
-        <h1 class="display-4">Конструктор Расписания</h1>
-        <p>Бесплатный помощник в составлении расписаний занятий для образовательных организаций!</p>
-    </div>
-    <br />
-    <div id="toc-container" style="text-align:center;">
-        <h2>Содержание</h2>
-        <div id="toc" class="rounded-block" style="display:inline-block; padding:20px;">
-            <ol>
-                <li><a class="toc-link" href="#languages">Используемые языки программирования и фреймворки</a></li>
-                <li><a class="toc-link" href="#features">Возможности конструктора</a></li>
-                <li><a class="toc-link" href="#first-run">Первый запуск</a></li>
-                <li><a class="toc-link" href="#data-entry">Заполнение данных</a></li>
-                <li><a class="toc-link" href="#system-requirements">Требования к системе</a></li>
-                <li><a class="toc-link" href="#goals">Цели Конструктора Расписания</a></li>
-            </ol>
-        </div>
-        <br />
-        <br />
-        <br />
-        <a href="@Url.Action("Index", "ScheduleAdd")"><button>Перейти к работе</button></a>
-    </div>
-    <br/>
-</div>
-<br />
-<hr />
-<br />
-<h2 id="languages">Используемые языки программирования и фреймворки</h2>
-<br />
-<div class="container" id="my-container">
-    <div class="row">
-        <div class="col-sm text-center">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" width="75" height="75" title="HTML - язык разметки гипертекста, используется для создания и форматирования содержимого веб-страниц">
-        </div>
-        <div class="col-sm text-center">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="75" height="75" title="CSS - каскадные таблицы стилей, используются для описания внешнего вида документа, написанного с использованием языка разметки">
-        </div>
-        <div class="col-sm text-center">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="75" height="75" title="JavaScript - язык программирования, используется для создания интерактивных элементов на веб-страницах">
+<section class="hero is-danger">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Конструктор Расписания</h1>
+            <h2 class="subtitle">Бесплатный помощник в составлении расписаний занятий для образовательных организаций!</h2>
         </div>
     </div>
-    <br />
-    <div class="row">
-        <div class="col-sm text-center">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" alt="JQuery" width="75" height="75" title="JQuery - JavaScript-библиотека, упрощает работу с HTML-документами, обработку событий, анимацию и Ajax-взаимодействие">
+</section>
+
+
+<section class="section">
+    <div class="container">
+        <h2 class="title">Содержание</h2>
+        <div class="content">
+            <aside class="menu">
+                <ul class="menu-list">
+                    <li><a class="has-text-danger" href="#languages">Используемые языки программирования и фреймворки</a></li>
+                    <li><a class="has-text-danger" href="#features">Возможности конструктора</a></li>
+                    <li><a class="has-text-danger" href="#first-run">Первый запуск</a></li>
+                    <li><a class="has-text-danger" href="#data-entry">Заполнение данных</a></li>
+                    <li><a class="has-text-danger" href="#system-requirements">Требования к системе</a></li>
+                    <li><a class="has-text-danger" href="#goals">Цели Конструктора Расписания</a></li>
+                </ul>
+            </aside>
         </div>
-        <div class="col-sm text-center">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" width="75" height="75" title="C# - объектно-ориентированный язык программирования, разработанный Microsoft для платформы .NET">
+    
+        <div class="has-text-centered">
+            <a class="button is-danger is-large" href="@Url.Action("Index", "ScheduleAdd")">Перейти к работе</a>
         </div>
-        <div class="col-sm text-center">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt="ASP .NET Core" width="75" height="75" title=".NET Core - кроссплатформенный фреймворк для создания приложений, разработанный Microsoft">
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="title" id="languages">Используемые языки программирования и фреймворки</h2>
+        <br />
+        <div class="columns is-multiline is-centered" id="my-container">
+            <div class="column is-narrow has-text-centered">
+                <figure class="image is-96x96">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" title="HTML - язык разметки гипертекста, используется для создания и форматирования содержимого веб-страниц">
+                </figure>
+            </div>
+            <div class="column is-narrow has-text-centered">
+                <figure class="image is-96x96">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" title="CSS - каскадные таблицы стилей, используются для описания внешнего вида документа, написанного с использованием языка разметки">
+                </figure>
+            </div>
+            <div class="column is-narrow has-text-centered">
+                <figure class="image is-96x96">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" title="JavaScript - язык программирования, используется для создания интерактивных элементов на веб-страницах">
+                </figure>
+            </div>
+            <div class="column is-narrow has-text-centered">
+                <figure class="image is-96x96">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" alt="JQuery" title="JQuery - JavaScript-библиотека, упрощает работу с HTML-документами, обработку событий, анимацию и Ajax-взаимодействие">
+                </figure>
+            </div>
+            <div class="column is-narrow has-text-centered">
+                <figure class="image is-96x96">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" title="C# - объектно-ориентированный язык программирования, разработанный Microsoft для платформы .NET">
+                </figure>
+            </div>
+            <div class="column is-narrow has-text-centered">
+                <figure class="image is-96x96">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core" title=".NET Core - кроссплатформенный фреймворк для создания приложений, разработанный Microsoft">
+                </figure>
+            </div>
         </div>
+    </div>
+</section>
+
+
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title"></p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body has-text-centered">
+
+        </section>
     </div>
 </div>
 
-<br />
-<hr />
-<br />
 <h2 id="features">Возможности конструктора</h2>
 <br />
 <div class="container">
@@ -199,7 +142,9 @@ Update-Database
         <li class="list-group-item list-group-item-danger">Оформление приложения и создание удобного и понятного интерфейса</li>
         <li class="list-group-item list-group-item-danger">Создание версий для разных учебных заведений (Школа, ВУЗ, Техникум)</li>
         <li class="list-group-item list-group-item-danger">Проработка доступности запуска приложения</li>
-        <li class="list-group-item list-group-item-success">
+        <li class="list-group-item list-group-item-danger">Система шаблонов для составления расписания</li>
+        <li class="list-group-item list-group-item-danger">Возможность добавить нечетную неделю</li>
+        <li class="list-group-item list-group-item-danger">
             Поддержка цветовых тем
             <ul>
                 <li>Светлая</li>
@@ -209,93 +154,26 @@ Update-Database
     </ul>
 </div>
 
-<script>
-    $(function () {
-        let originalText = [];
+    <script>
+        document.querySelectorAll("#my-container img").forEach((img) => {
+            img.addEventListener("click", () => {
+                // Get the modal elements
+                let modal = document.querySelector(".modal");
+                let modalTitle = document.querySelector(".modal-card-title");
+                let modalBody = document.querySelector(".modal-card-body");
+                let modalClose = document.querySelector(".modal .delete");
 
-        // Настройка изображений
-        $("#my-container img").each(function (index) {
-            originalText.push($(this).attr("title"));
-            $(this).removeAttr("title");
-            $(this).css({
-                cursor: "pointer",
-                transition: "transform 0.2s"
-            });
+                // Set the content of the modal
+                modalTitle.textContent = img.getAttribute("alt");
+                modalBody.innerHTML = `<figure class="image is-128x128" style="margin: 0 auto;"><img src="${img.getAttribute("src")}" alt="${img.getAttribute("alt")}" title="${img.getAttribute("title")}"></figure><br>${img.getAttribute("title")}`;
 
-            // Обработка событий мыши
-            $(this).on("mouseenter", function () {
-                $(this).css("transform", "scale(1.2)");
-            });
-            $(this).on("mouseleave", function () {
-                $(this).css("transform", "scale(1)");
-            });
+                // Show the modal
+                modal.classList.add("is-active");
 
-            // Открытие модального окна при клике на изображение
-            $(this).on("click", function () {
-                let modal = $("<div></div>");
-                modal.css({
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
+                // Handle clicks on the modal close button
+                modalClose.addEventListener("click", () => {
+                    modal.classList.remove("is-active");
                 });
-                let modalContent = $("<div></div>");
-                modalContent.css({
-                    position: "relative",
-                    backgroundColor: "#fff",
-                    padding: "20px",
-                    borderRadius: "10px",
-                    boxShadow:
-                        "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -2px rgba(0,0,0,0.05)",
-                    display: "flex",
-                    alignItems: "center"
-                });
-                let modalImg = $("<img>");
-                modalImg.attr({
-                    src: $(this).attr("src"),
-                    alt: $(this).attr("alt"),
-                    width: 150,
-                    height: 150
-                });
-                let text = originalText[index];
-                let p = $("<p></p>").text(text);
-                p.css({
-                    marginLeft: "20px",
-                    color: "#333"
-                });
-                modalContent.append(modalImg);
-                modalContent.append(p);
-                let closeBtn = $("<button>×</button>");
-                closeBtn.css({
-                    position: "absolute",
-                    top: "0px",
-                    right: "0px",
-                    width: "45px",
-                    height: "35px",
-                    borderRadius: "0 10px 0 10px",
-                    backgroundColor: "#f00",
-                    color: "#fff",
-                    fontSize: "35px", 
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    lineHeight: "0px", 
-                    cursor: "pointer",
-                    border: "none",
-                    padding: "0 3px" 
-                });
-                closeBtn.on("click", function () {
-                    modal.remove();
-                });
-                modalContent.append(closeBtn);
-                modal.append(modalContent);
-                $("body").append(modal);
             });
         });
-    });
-
 </script>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schedule_Constructor.Models.DataModels
 {
@@ -23,5 +24,8 @@ namespace Schedule_Constructor.Models.DataModels
 
         [Display(Name = "Дисциплина")]
         public Subject Subject { get; set; }
+
+        [Display(Name = "Четность недели")]
+        public bool IsEvenWeek { get; set; }
     }
 }

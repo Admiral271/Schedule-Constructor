@@ -3,6 +3,7 @@ using Schedule_Constructor.Data;
 using Schedule_Constructor.Models.DataModels;
 using Schedule_Constructor.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace Schedule_Constructor.Controllers.DataControllers.Add
 {
@@ -88,12 +89,17 @@ namespace Schedule_Constructor.Controllers.DataControllers.Add
                 // Проверка, равен ли SubjectId нулю
                 if (scheduleData.SubjectId != 0)
                 {
+                    var date = DateTime.Parse(scheduleData.Date);
+                    var calendar = CultureInfo.InvariantCulture.Calendar;
+                    var weekOfYear = calendar.GetWeekOfYear(date, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+
                     var schedule = new Schedule
                     {
                         GroupId = data.Group,
-                        Date = DateTime.Parse(scheduleData.Date),
+                        Date = date,
                         LessonNumber = scheduleData.LessonNumber,
-                        SubjectId = scheduleData.SubjectId
+                        SubjectId = scheduleData.SubjectId,
+                        IsEvenWeek = weekOfYear % 2 == 0 
                     };
                     _context.Schedules.Add(schedule);
                 }

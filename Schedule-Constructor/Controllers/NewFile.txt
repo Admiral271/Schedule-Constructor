@@ -1,0 +1,102 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Schedule_Constructor.Data;
+using Schedule_Constructor.Models.DataModels;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Schedule_Constructor.Controllers
+{
+    public class GroupController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public GroupController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Groups()
+        {
+            var groups = _context.Groups.ToList();
+            return View(groups);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateGroup(Group group)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Groups.Add(group);
+                await _context.SaveChangesAsync();
+                TempData["messageType"] = "success";
+                TempData["message"] = "Группа успешно создана";
+                return RedirectToAction(nameof(Groups));
+            }
+            TempData["messageType"] = "error";
+            TempData["message"] = "Ошибка при создании группы";
+            return View(group);
+        }
+
+        public IActionResult GroupDelete(int id)
+        {
+            var group = _context.Groups.FirstOrDefault(g => g.Id == id);
+            if (group == null)
+            {
+                return NotFound();
+            }
+            return View(group);
+        }
+
+        [HttpPost, ActionName("GroupDelete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult GroupDeleteConfirmed(int id)
+        {
+            var group = _context.Groups.FirstOrDefault(g => g.Id == id);
+            if (group != null)
+            {
+                _context.Groups.Remove(group);
+                _context.SaveChanges();
+                TempData["messageType"] = "success";
+                TempData["message"] = "Группа успешно удалена";
+            }
+            else
+            {
+                TempData["messageType"] = "error";
+                TempData["message"] = "Группа не найдена";
+            }
+            return RedirectToAction("Groups", "GroupData");
+        }
+
+        public IActionResult GroupEdit(int id)
+        {
+            var group = _context.Groups.FirstOrDefault(g => g.Id == id);
+            if (group == null)
+            {
+                return NotFound();
+            }
+            return View(group);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GroupEdit(int id, Group group)
+        {
+            if (id != group.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(group);
+                _context.SaveChanges();
+                TempData["messageType"] = "success";
+                TempData["message"] = "Группа успешно отредактирована";
+                return RedirectToAction("Groups", "GroupData");
+            }
+            TempData["messageType"] = "error";
+            TempData["message"] = "Ошибка при редактировании группы";
+            return View(group);
+        }
+    }
+}

@@ -1,6 +1,20 @@
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #F0F0F0;
+    /*background: rgba(30,29,31,1);
+    background: -moz-linear-gradient(-45deg, rgba(30,29,31,1) 0%, rgba(223,64,90,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(30,29,31,1)), color-stop(100%, rgba(223,64,90,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(30,29,31,1) 0%, rgba(223,64,90,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(30,29,31,1) 0%, rgba(223,64,90,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(30,29,31,1) 0%, rgba(223,64,90,1) 100%);
+    background: linear-gradient(135deg, rgba(30,29,31,1) 0%, rgba(223,64,90,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e1d1f', endColorstr='#df405a', GradientType=1 );
+    margin: 0;
+    min-height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;*/
+}
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -72,3 +86,7 @@ body.dark-theme {
         outline: none;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     }
+
+tr.week-separator {
+    height: 70px;
+}

@@ -1,4 +1,5 @@
 ﻿@using Schedule_Constructor.Models.DataModels
+@using System.Globalization
 @{
     var groups = ViewBag.Groups as List<Group>;
     var allSubjects = ViewBag.AllSubjects as List<Subject>;
@@ -60,8 +61,10 @@ else
                     if (date.DayOfWeek != DayOfWeek.Sunday)
                     {
                         int dayOfWeek = (int)date.DayOfWeek;
+
                         <tr>
                             <td>@date.ToString("dd.MM.yyyy") (@daysOfWeek[dayOfWeek - 1])</td>
+
                             @for (int lessonNumber = 0; lessonNumber < 4; lessonNumber++)
                             {
                                 string selectName = $"schedule[{date.ToString("yyyy-MM-dd")}][{lessonNumber}]";
@@ -76,10 +79,16 @@ else
                                             <option value="@subject.Id">@subject.Name (@subject.Teacher)</option>
                                         }
                                     </select>
-
                                 </td>
                             }
                         </tr>
+
+                        if (date.DayOfWeek == DayOfWeek.Saturday)
+                        {
+                            <tr class="week-separator">
+                                <td colspan="5"></td>
+                            </tr>
+                        }
                     }
                 }
             </tbody>
