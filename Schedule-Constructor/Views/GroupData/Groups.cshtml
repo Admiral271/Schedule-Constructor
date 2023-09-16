@@ -26,9 +26,9 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <a asp-action="GroupEdit" asp-controller="GroupEdit" asp-route-id="@item.Id" class="btn btn-success">Редактировать</a>
+                    <a asp-action="GroupEdit" asp-controller="Group" asp-route-id="@item.Id" class="btn btn-success">Редактировать</a>
                     @* <a asp-action="GroupDetails" asp-route-id="@item.Id" class="btn btn-primary">Подробнее</a>*@
-                    <a asp-action="GroupDelete" asp-controller="GroupDelete" asp-route-id="@item.Id" class="btn btn-danger">Удалить</a>
+                    <a asp-action="GroupDelete" asp-controller="Group" asp-route-id="@item.Id" class="btn btn-danger">Удалить</a>
                 </td>
             </tr>
         }

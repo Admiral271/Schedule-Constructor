@@ -39,6 +39,11 @@
 }
 else
 {
+    var calendar = CultureInfo.InvariantCulture.Calendar;
+    var firstWeekOfYear = calendar.GetWeekOfYear(startDate.Value, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+    bool isFirstWeekEven = firstWeekOfYear % 2 == 0;
+    string firstWeekType = isFirstWeekEven ? "Четная неделя" : "Нечетная неделя";
+
     <h3>Группа: @selectedGroup.Name</h3>
 
     @if (startDate.HasValue && endDate.HasValue)
@@ -56,11 +61,16 @@ else
                 </tr>
             </thead>
             <tbody>
+                <tr class="week-separator">
+                    <td colspan="5" style="font-size: 20px; font-weight: bold; text-align: center;">@firstWeekType</td>
+                </tr>
                 @for (DateTime date = startDate.Value; date <= endDate.Value; date = date.AddDays(1))
                 {
                     if (date.DayOfWeek != DayOfWeek.Sunday)
                     {
                         int dayOfWeek = (int)date.DayOfWeek;
+                        var weekOfYear = calendar.GetWeekOfYear(date, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+                        bool isEvenWeek = weekOfYear % 2 == 0;
 
                         <tr>
                             <td>@date.ToString("dd.MM.yyyy") (@daysOfWeek[dayOfWeek - 1])</td>
@@ -83,20 +93,23 @@ else
                             }
                         </tr>
 
-                        if (date.DayOfWeek == DayOfWeek.Saturday)
+                        if (date.DayOfWeek == DayOfWeek.Saturday && date.AddDays(1) <= endDate.Value)
                         {
+                            string weekType = isEvenWeek ? "Четная неделя" : "Нечетная неделя";
                             <tr class="week-separator">
-                                <td colspan="5"></td>
+                                <td colspan="5" style="font-size: 20px; font-weight: bold; text-align: center;">@weekType</td>
                             </tr>
                         }
                     }
                 }
+
             </tbody>
         </table>
 
         <button id="send-button" class="btn btn-danger">Сохранить</button>
 
         <script>
+
             // Сбор данных
             function collectScheduleData() {
                 var scheduleData = [];
